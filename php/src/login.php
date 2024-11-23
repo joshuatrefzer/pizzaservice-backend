@@ -28,7 +28,7 @@ if (!$username || !$password) {
 
 try {
     
-    $stmt = $conn->prepare("SELECT password, firstname, lastname, street, street_nr, postal_code FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT id, password, firstname, lastname, street, street_nr, postal_code FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -44,7 +44,9 @@ try {
                 'status' => 'success',
                 'message' => 'Login successful.',
                 'user' => [
+                    
                     'username' => $username,
+                    'id' => $user['id'],
                     'firstname' => $user['firstname'],
                     'lastname' => $user['lastname'],
                     'street' => $user['street'],
